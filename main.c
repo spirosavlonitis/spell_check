@@ -19,8 +19,9 @@ int main(int argc, char  *argv[])
 
 	snode = NULL;
 	snode = treesort(root, snode);
+	snode = resetsort(snode);
 
-	printf("%s\n", snode->t_node->word);
+	
 	
 	if (fp != stdin)
 		fclose(fp);

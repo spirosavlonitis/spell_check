@@ -19,7 +19,9 @@ int getword(FILE *, char *, int);
 
 TREENODE *addtree(TREENODE *, char *);
 void treeprint(TREENODE *);
+
 SORTNODE *treesort(TREENODE *, SORTNODE *);
+SORTNODE *resetsort(SORTNODE *);
 
 
 void err_quit(char *, ...);

@@ -29,9 +29,6 @@ void treeprint(TREENODE *p)
 	}
 }
 
-
-
-
 SORTNODE *treesort(TREENODE *p, SORTNODE	*s)
 {
 	SORTNODE *temp, *low, *high;
@@ -63,9 +60,16 @@ SORTNODE *treesort(TREENODE *p, SORTNODE	*s)
 			temp->next = NULL;
 			s = temp;
 		}
-
 		s = treesort(p->right, s);
 	}
 
 	return	s;
+}
+
+
+SORTNODE *resetsort(SORTNODE *p)
+{
+	for ( ;p->prev != NULL; p = p->prev)
+		;
+	return p;
 }
