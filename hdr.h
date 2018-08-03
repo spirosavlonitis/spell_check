@@ -8,13 +8,18 @@ typedef	struct treenode {
 	struct treenode *left, *right;
 }	TREENODE;
 
+typedef struct sortnode {
+	TREENODE 	*t_node;
+	struct sortnode *next, *prev;
+}	SORTNODE;
 
 #define MAXWORD		1000
 
-
 int getword(FILE *, char *, int);
+
 TREENODE *addtree(TREENODE *, char *);
 void treeprint(TREENODE *);
+SORTNODE *treesort(TREENODE *, SORTNODE *);
 
 
 void err_quit(char *, ...);

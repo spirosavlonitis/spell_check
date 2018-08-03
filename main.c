@@ -3,9 +3,10 @@
 
 int main(int argc, char  *argv[])
 {
-	char	word[MAXWORD];
-	FILE	*fp;
-	TREENODE *root;
+	char	 	word[MAXWORD];
+	FILE	 	*fp;
+	TREENODE 	*root;
+	SORTNODE	*snode;
 
 	if (argc != 2)
 		fp = stdin;
@@ -16,7 +17,10 @@ int main(int argc, char  *argv[])
 	while (getword(fp, word, MAXWORD) != EOF)
 		root = addtree(root, word);
 
-	treeprint(root);
+	snode = NULL;
+	snode = treesort(root, snode);
+
+	printf("%s\n", snode->t_node->word);
 	
 	if (fp != stdin)
 		fclose(fp);
