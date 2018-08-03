@@ -22,6 +22,7 @@ void treeprint(TREENODE *);
 
 SORTNODE *treesort(TREENODE *, SORTNODE *);
 SORTNODE *resetsort(SORTNODE *);
+void	sortprint(SORTNODE *);
 
 
 void err_quit(char *, ...);

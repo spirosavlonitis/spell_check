@@ -21,6 +21,7 @@ int main(int argc, char  *argv[])
 	snode = treesort(root, snode);
 	snode = resetsort(snode);
 
+	sortprint(snode);
 	
 	
 	if (fp != stdin)

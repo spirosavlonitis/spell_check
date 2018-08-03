@@ -66,10 +66,15 @@ SORTNODE *treesort(TREENODE *p, SORTNODE	*s)
 	return	s;
 }
 
-
 SORTNODE *resetsort(SORTNODE *p)
 {
 	for ( ;p->prev != NULL; p = p->prev)
 		;
 	return p;
+}
+
+void sortprint(SORTNODE *p)
+{
+	for ( ;p->next != NULL; p = p->next)
+		printf("%s: %ld\n", p->t_node->word, p->t_node->count);
 }
