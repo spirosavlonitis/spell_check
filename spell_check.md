@@ -9,4 +9,8 @@ If a word is not in the dictionary it gets shown to the user as a misspelled wor
 
 **How it does it**
 
-1. It first generates a binary tree which contains all of the words found in the text file.
+1. It gets each individual word from a text file.
+
+2. It converts the word to lower case characters.
+
+3. It adds each word to a binary tree structure.
