@@ -11,14 +11,13 @@ int main(int argc, char  *argv[])
 		fp = stdin;
 	else
 		fp = Fopen(argv[1], "r");
-
 	root = NULL;
 
 	while (getword(fp, word, MAXWORD) != EOF)
 		root = addtree(root, word);
 
 	treeprint(root);
-
+	
 	if (fp != stdin)
 		fclose(fp);
 
