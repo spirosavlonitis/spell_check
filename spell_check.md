@@ -16,3 +16,4 @@ If a word is not in the dictionary it gets shown to the user as a misspelled wor
 3. It adds each word to a binary tree structure.
 
 Spiros's
+hasn't
