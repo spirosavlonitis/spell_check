@@ -15,8 +15,10 @@ typedef struct sortnode {
 
 #define MAXWORD		1000
 
+/* get_word.c */
 int getword(FILE *, char *, int);
 
+/* bintree.c */
 TREENODE *addtree(TREENODE *, char *);
 void treeprint(TREENODE *);
 
@@ -25,8 +27,9 @@ SORTNODE *resetsort(SORTNODE *);
 void	sortprint(SORTNODE *);
 
 
-void err_quit(char *, ...);
-
-
-/* Wrapper functions */
+/* wrapper.c */
 FILE *Fopen(char *, char *);
+
+
+/* error.c */
+void err_quit(char *, ...);

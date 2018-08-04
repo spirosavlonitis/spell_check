@@ -21,11 +21,16 @@ int main(int argc, char  *argv[])
 	snode = treesort(root, snode);
 	snode = resetsort(snode);
 
-	sortprint(snode);
-	
-	
 	if (fp != stdin)
 		fclose(fp);
+
+	fp = Fopen("en-US.dic", "r");
+
+	while (getword(fp, word, MAXWORD) != EOF)
+		printf("%s\n", word);
+
+
+	fclose(fp);
 
 	exit(EXIT_SUCCESS);
 }

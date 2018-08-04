@@ -17,10 +17,8 @@ int getword(FILE *fp, char *w, int limit)
 			*wp = lowercase(*wp);
 
 	if (*wp == '\'') {
-		if ( (*wp = fgetc(fp)) == 's' )
-			;
-		else if (*wp == 't')
-			wp--;
+		*++wp = fgetc(fp);
+		wp++;
 	}else
 		ungetc(*wp, fp);
 
