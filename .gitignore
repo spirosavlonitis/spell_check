@@ -1,2 +1,5 @@
 #ignore book.txt
 book.txt
+
+#ignore ruby script
+dictionary.rb
