@@ -26,6 +26,8 @@ SORTNODE *treesort(TREENODE *, SORTNODE *);
 SORTNODE *resetsort(SORTNODE *);
 void	sortprint(SORTNODE *);
 
+/* spellcheck.c */
+void spellcheck(SORTNODE *);
 
 /* wrapper.c */
 FILE *Fopen(char *, char *);

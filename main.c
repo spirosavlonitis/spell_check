@@ -24,13 +24,7 @@ int main(int argc, char  *argv[])
 	if (fp != stdin)
 		fclose(fp);
 
-	fp = Fopen("en-US.dic", "r");
-
-	while (getword(fp, word, MAXWORD) != EOF)
-		printf("%s\n", word);
-
-
-	fclose(fp);
+	spellcheck(snode);
 
 	exit(EXIT_SUCCESS);
 }
