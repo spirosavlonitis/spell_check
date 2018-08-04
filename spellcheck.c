@@ -12,9 +12,8 @@ void spellcheck(SORTNODE *p)
 	cur_ltr = *p->t_node->word;
 
 	fp = Fopen("en-US.dic", "r");
-	while (getword(fp, word, MAXWORD) != EOF) 
-		printf("%s\n", word);
-/*	for ( ; p != NULL ; p = p->next, match = 0 ) {
+
+	for ( ; p != NULL ; p = p->next, match = 0 ) {
 		if (*p->t_node->word > cur_ltr)
 			cur_ltr = *p->t_node->word;
 
@@ -26,12 +25,15 @@ void spellcheck(SORTNODE *p)
 				match = 1;
 				break;
 			}
+
+			if (*word > cur_ltr)
+				break;
 		}
 
 		if (match == 0)
 			printf("%s\n", p->t_node->word);
 		fseek(fp, 0, SEEK_SET);
-	} */
+	} 
 	fclose(fp);
 
 }
