@@ -12,16 +12,16 @@ int getword(FILE *fp, char *w, int limit)
 	while (!isalpha(*wp = fgetc(fp)))
 		if (*wp == EOF)
 			return EOF;
+
 	*wp = lowercase(*wp);
 	for (wp++; isalpha(*wp = fgetc(fp)) ; wp++)
 			*wp = lowercase(*wp);
 
-	if (*wp == '\'') {
-		while ((*++wp = fgetc(fp)) != '\n')
+	if (*wp == '\'')
+		for ( wp++; isalpha(*wp = fgetc(fp)) ; wp++)
 			;
-	}else
-		ungetc(*wp, fp);
-
+		
+	ungetc(*wp, fp);
 	*wp = '\0';
 
 	return *w;
