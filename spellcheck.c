@@ -23,7 +23,8 @@ void spellcheck(SORTNODE *p)
 				match = 1;
 				break;
 			}
-
+			if (*word > cur_ltr)	/* needs work */
+				break;
 		}
 
 		if (match == 0)
