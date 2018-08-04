@@ -1,6 +1,5 @@
 #include "hdr.h"
 
-
 void spellcheck(SORTNODE *p)
 {
 	int		match;
@@ -20,12 +19,10 @@ void spellcheck(SORTNODE *p)
 		while (getword(fp, word, MAXWORD) != EOF) {
 			if (cur_ltr > *word)
 				continue;
-			
 			if (strcmp(p->t_node->word, word) == 0) {
 				match = 1;
 				break;
 			}
-
 			if (*word > cur_ltr)
 				break;
 		}
@@ -35,5 +32,4 @@ void spellcheck(SORTNODE *p)
 		fseek(fp, 0, SEEK_SET);
 	} 
 	fclose(fp);
-
 }
