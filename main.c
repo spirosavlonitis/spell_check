@@ -17,6 +17,9 @@ int main(int argc, char  *argv[])
 	while (getword(fp, word, MAXWORD) != EOF)
 		root = addtree(root, word);
 
+	if (root == NULL)
+		err_quit("No input !!");
+
 	snode = NULL;
 	snode = treesort(root, snode);
 	snode = resetsort(snode);
