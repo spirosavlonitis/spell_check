@@ -12,7 +12,7 @@ TREENODE *addtree(TREENODE *p, char *w)
 		p->low_word =  downcase(p->word);
 		p->count = 1;
 		p->left = p->right = NULL;
-	}else if ( (cmp = strcmp(w, p->low_word)) == 0)
+	}else if ( (cmp = strcmp(w, p->word)) == 0)
 		p->count++;
 	else if (cmp > 0)
 		p->right = addtree(p->right, w);
