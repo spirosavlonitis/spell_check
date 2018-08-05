@@ -3,7 +3,7 @@
 #include <string.h>
 
 typedef	struct treenode {
-	char 	*word;
+	char 	*word, *lowcase;
 	long	count;
 	struct treenode *left, *right;
 }	TREENODE;
@@ -14,9 +14,12 @@ typedef struct sortnode {
 }	SORTNODE;
 
 #define MAXWORD		1000
+#define lower(a) ( (a) >= 'A' && (a) <= 'Z') ?	a + 32 : a;
+
 
 /* get_word.c */
 int getword(FILE *, char *, int);
+int getlow_word(FILE *, char *, int );
 
 /* bintree.c */
 TREENODE *addtree(TREENODE *, char *);

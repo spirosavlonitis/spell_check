@@ -1,5 +1,6 @@
 #include "hdr.h"
 
+static char *downcase(char *);
 
 TREENODE *addtree(TREENODE *p, char *w)
 {
@@ -8,6 +9,7 @@ TREENODE *addtree(TREENODE *p, char *w)
 	if (p == NULL){
 		p = (TREENODE *)  malloc(sizeof(TREENODE));
 		p->word = strdup(w);
+		p->lowcase =  downcase(p->word);
 		p->count = 1;
 		p->left = p->right = NULL;
 	}else if ( (cmp = strcmp(w, p->word)) == 0)
@@ -19,6 +21,23 @@ TREENODE *addtree(TREENODE *p, char *w)
 
 	return p;
 }
+
+static char *downcase(char *s)
+{
+	int 	i;
+	char 	*lower;
+	size_t	len;
+
+	lower = (char *) malloc((len = strlen(s)));
+
+	for (i = 0; i < len; ++i)
+		lower[i] = lower(s[i]);
+
+	lower[i] = '\0';
+
+	return lower;
+}
+
 
 void treeprint(TREENODE *p)
 {
@@ -40,11 +59,11 @@ SORTNODE *treesort(TREENODE *p, SORTNODE	*s)
 			s = (SORTNODE *) malloc(sizeof(SORTNODE));
 			s->t_node = p;
 			s->next = s->prev = NULL;
-		}else if (strcmp(s->t_node->word, p->word) > 0) {
+		}else if (strcmp(s->t_node->lowcase, p->lowcase) > 0) {
 			high = s;
 			low = s->prev;
 
-			while (low != NULL && strcmp(low->t_node->word, p->word) > 0)
+			while (low != NULL && strcmp(low->t_node->lowcase, p->lowcase) > 0)
 				high = low,low = low->prev;
 
 			temp = (SORTNODE *) malloc(sizeof(SORTNODE));
@@ -75,6 +94,6 @@ SORTNODE *resetsort(SORTNODE *p)
 
 void sortprint(SORTNODE *p)
 {
-	for ( ;p->next != NULL; p = p->next)
-		printf("%s: %ld\n", p->t_node->word, p->t_node->count);
+	for ( ;p != NULL; p = p->next)
+		printf("%s, %s: %ld\n", p->t_node->word, p->t_node->lowcase, p->t_node->count);
 }
