@@ -21,10 +21,12 @@ int main(int argc, char  *argv[])
 		readargs(argc, argv+1);
 	
 
-	if (a) {
-		fprintf(stderr, "adding words\n");
-		exit(0);
+	if (a){
+		for (int i = 0 ; new_words[i] ; i++)
+			printf("%s\n", new_words[i]);
+		exit(1);
 	}
+
 
 	root = NULL;
 	while (getword(fp, word, MAXWORD) != EOF)
