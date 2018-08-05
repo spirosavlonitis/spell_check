@@ -38,3 +38,6 @@ FILE *Fopen(char *, char *);
 
 /* error.c */
 void err_quit(char *, ...);
+
+/* options */
+int 	a;

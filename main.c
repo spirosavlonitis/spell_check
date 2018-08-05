@@ -1,19 +1,32 @@
 #include "hdr.h"
 
+#define NEWWORDS 	100
+
+static void readargs(int, char **);
+
+static char 	*new_words[NEWWORDS];
+static FILE	 	*fp;
 
 int main(int argc, char  *argv[])
 {
 	char	 	word[MAXWORD];
-	FILE	 	*fp;
 	TREENODE 	*root;
 	SORTNODE	*snode;
 
-	if (argc != 2)
+	a = 0;
+
+	if (argc == 1)
 		fp = stdin;
 	else
-		fp = Fopen(argv[1], "r");
-	root = NULL;
+		readargs(argc, argv+1);
+	
 
+	if (a) {
+		fprintf(stderr, "adding words\n");
+		exit(0);
+	}
+
+	root = NULL;
 	while (getword(fp, word, MAXWORD) != EOF)
 		root = addtree(root, word);
 
@@ -30,4 +43,34 @@ int main(int argc, char  *argv[])
 	spellcheck(snode);
 
 	exit(EXIT_SUCCESS);
+}
+
+
+static void readargs(int argc, char **argv)
+{
+	int 	i;
+	char 	c;
+
+	for (; --argc > 0 && (c = **argv) ; argv++)
+		switch (c) {
+			case '-':
+				while (argc > 0 && (c = *++*argv))
+					switch (c) {
+						case 'a':
+						 	a = 1;
+						 	for (argv++, i = 0; --argc > 0 && (c = **argv) ; argv++)
+								if (c == '-')
+									break;
+								else
+									new_words[i++] = *argv;
+						  	break;
+						default:
+							err_quit("unkown option %c", c);
+							break;
+					}
+				break;
+			default:
+				fp = Fopen(*argv, "r");
+				break;
+		}
 }
