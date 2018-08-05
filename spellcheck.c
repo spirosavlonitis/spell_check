@@ -16,7 +16,7 @@ void spellcheck(SORTNODE *p)
 		if (*p->t_node->lowcase > cur_ltr)
 			cur_ltr = *p->t_node->lowcase;
 
-		while (getword(fp, low_word, MAXWORD) != EOF) {
+		while (getlow_word(fp, low_word, MAXWORD) != EOF) {
 			if (cur_ltr > *low_word)	/* haven't reached current letter */
 				continue;
 			if (strcmp(p->t_node->lowcase, low_word) == 0) {
@@ -26,7 +26,6 @@ void spellcheck(SORTNODE *p)
 			if (*low_word > cur_ltr)	/* passed current letter thus mistake */
 				break;
 		}
-
 		if (match == 0)
 			printf("%s\n", p->t_node->word);
 		fseek(fp, 0, SEEK_SET);

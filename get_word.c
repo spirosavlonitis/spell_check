@@ -30,8 +30,9 @@ int getlow_word(FILE *fp, char *w, int limit)
 		if (*wp == EOF)
 			return EOF;
 
+	*wp = lower(*wp);
 	for (wp++; isalpha(*wp = fgetc(fp)) || *wp == '\'' ; wp++)
-			;
+		*wp = lower(*wp);;
 		
 	ungetc(*wp, fp);
 	*wp = '\0';
