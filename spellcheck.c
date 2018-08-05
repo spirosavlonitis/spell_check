@@ -8,18 +8,18 @@ void spellcheck(SORTNODE *p)
 
 	match = 0;
 
-	cur_ltr = *p->t_node->lowcase;
+	cur_ltr = *p->t_node->low_word;
 
 	fp = Fopen("en-US.dic", "r");
 
 	for ( ; p != NULL ; p = p->next, match = 0 ) {
-		if (*p->t_node->lowcase > cur_ltr)
-			cur_ltr = *p->t_node->lowcase;
+		if (*p->t_node->low_word > cur_ltr)
+			cur_ltr = *p->t_node->low_word;
 
 		while (getlow_word(fp, low_word, MAXWORD) != EOF) {
 			if (cur_ltr > *low_word)	/* haven't reached current letter */
 				continue;
-			if (strcmp(p->t_node->lowcase, low_word) == 0) {
+			if (strcmp(p->t_node->low_word, low_word) == 0) {
 				match = 1;
 				break;
 			}

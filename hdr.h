@@ -3,7 +3,7 @@
 #include <string.h>
 
 typedef	struct treenode {
-	char 	*word, *lowcase;
+	char 	*word, *low_word;
 	long	count;
 	struct treenode *left, *right;
 }	TREENODE;
