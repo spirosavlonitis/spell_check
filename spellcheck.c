@@ -17,14 +17,13 @@ void spellcheck(SORTNODE *p)
 			cur_ltr = *p->t_node->word;
 
 		while (getword(fp, word, MAXWORD) != EOF) {
-			if (cur_ltr > *word)
+			if (cur_ltr > *word)	/* haven't reached current letter */
 				continue;
 			if (strcmp(p->t_node->word, word) == 0) {
 				match = 1;
 				break;
 			}
-			
-			if (*word > cur_ltr)	/* needs work */
+			if (*word > cur_ltr)	/* passed current letter thus mistake */
 				break;
 		}
 
