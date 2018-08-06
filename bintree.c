@@ -22,7 +22,7 @@ TREENODE *addtree(TREENODE *p, char *w)
 	return p;
 }
 
-static char *downcase(char *s)
+char *downcase(char *s)
 {
 	int 	i;
 	char 	*lower;

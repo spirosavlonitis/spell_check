@@ -4,17 +4,40 @@ static void shellsort(char **, int);
 
 void addwords(char **words)
 {
-	int 	i, n;
+	int 	i, n, cmp;
+	char	cur_ltr, dic_word[MAXWORD];
+	FILE 	*fp;
 
 	for (n = 0; words[n]; ++n)
-		;
+		for (i = 0; i < strlen(words[n]) ; ++i)
+			words[n][i] = lower(words[n][i]);
 
 	shellsort(words, n);
 
-	for (i = 0; words[i]; ++i)
-		printf("%s\n", words[i]);
-}
+	cur_ltr = **words;
+	fp = Fopen("en-US.dic", "r+");
 
+	for (i = 0; words[i] ; ++i) {
+		if (*words[i] > cur_ltr )
+			cur_ltr = *words[i];
+
+		while (getlow_word(fp, dic_word, MAXWORD) != EOF) {
+			if (cur_ltr > *dic_word)
+				continue;
+			if ((cmp = strcmp(words[i], dic_word)) == 0) {
+				printf("%s alredy in dictionary\n", words[i]);
+				break;
+			}
+			if (*dic_word > cur_ltr)
+				break;
+		}
+
+		fseek(fp, SEEK_SET, 0);
+	}
+
+	fclose(fp);
+
+}
 
 static void shellsort(char **w, int n)
 {
