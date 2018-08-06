@@ -32,6 +32,9 @@ void	sortprint(SORTNODE *);
 /* spellcheck.c */
 void spellcheck(SORTNODE *);
 
+/* addword */
+void addwords(char **);
+
 /* wrapper.c */
 FILE *Fopen(char *, char *);
 

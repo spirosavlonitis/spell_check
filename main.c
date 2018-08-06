@@ -22,8 +22,7 @@ int main(int argc, char  *argv[])
 	
 
 	if (a){
-		for (int i = 0 ; new_words[i] ; i++)
-			printf("%s\n", new_words[i]);
+		addwords(new_words);
 		exit(1);
 	}
 
@@ -58,7 +57,7 @@ static void readargs(int argc, char **argv)
 			case '-':
 				while (argc > 0 && (c = *++*argv))
 					switch (c) {
-						case 'a':
+						case 'a': 	/* words to add */
 						 	a = 1;
 						 	for (argv++, i = 0; --argc > 0 && (c = **argv) ; argv++)
 								if (c == '-')
