@@ -4,9 +4,9 @@ static void shellsort(char **, int);
 
 void addwords(char **words)
 {
-	int 	i, n, cmp;
-	char	cur_ltr, dic_word[MAXWORD];
-	FILE 	*fp;
+	int 	n, i, j, inserted, cmp;
+	char	cur_ltr, dic_word[MAXWORD], low_dicword[MAXWORD];
+	FILE 	*fp, *fp_orig;
 
 	for (n = 0; words[n]; ++n)
 		for (i = 0; i < strlen(words[n]) ; ++i)
@@ -15,27 +15,49 @@ void addwords(char **words)
 	shellsort(words, n);
 
 	cur_ltr = **words;
-	fp = Fopen("en-US.dic", "r+");
+	fp = Fopen("en-US.dic", "w");
+	fp_orig = Fopen("en-US_original.dic", "r");
 
 	for (i = 0; words[i] ; ++i) {
 		if (*words[i] > cur_ltr )
 			cur_ltr = *words[i];
-
-		while (getlow_word(fp, dic_word, MAXWORD) != EOF) {
-			if (cur_ltr > *dic_word)
+		inserted = 0;
+		while (getword(fp_orig, dic_word, MAXWORD) != EOF) {
+			if (cur_ltr > *dic_word) {
+				fprintf(fp, "%s\n", dic_word);
 				continue;
-			if ((cmp = strcmp(words[i], dic_word)) == 0) {
-				printf("%s alredy in dictionary\n", words[i]);
-				break;
+			}else if (*dic_word > cur_ltr) {
+				fprintf(fp, "%s\n", dic_word);
+				continue;
 			}
-			if (*dic_word > cur_ltr)
-				break;
+			
+			for (j = 0; dic_word[j] ; ++j)
+				low_dicword[j] = lower(dic_word[j]);
+			low_dicword[j] = '\0';
+
+			if ( !inserted && (cmp = strcmp(words[i], low_dicword)) <= 0){
+				inserted = 1;
+				if (cmp == 0)
+					fprintf(fp, "%s\n", dic_word);
+				else
+					fprintf(fp, "%s\n%s\n", words[i], dic_word);
+			}else 
+				fprintf(fp, "%s\n", dic_word);
 		}
 
-		fseek(fp, SEEK_SET, 0);
+		fseek(fp_orig, 0, SEEK_SET);
 	}
 
 	fclose(fp);
+	fclose(fp_orig);
+
+	fp = Fopen("en-US.dic", "r");
+	fp_orig = Fopen("en-US_original.dic", "w");
+
+	while (getword(fp, dic_word, MAXWORD) != EOF)
+		fprintf(fp_orig, "%s\n", dic_word);
+	fclose(fp);
+	fclose(fp_orig);
 
 }
 
