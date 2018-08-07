@@ -50,8 +50,7 @@ void addwords(char **words)
 	fclose(fp);
 	fclose(fp_orig);
 
-	exit(1);
-
+	/* update source dictionary */
 	fp = Fopen("en-US.dic", "r");
 	fp_orig = Fopen("en-US_original.dic", "w");
 
