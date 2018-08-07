@@ -1,10 +1,11 @@
 #include "hdr.h"
 
 static void shellsort(char **, int);
+static void unget_word(FILE *, char *);
 
 void addwords(char **words)
 {
-	int 	n, i, j, inserted, cmp;
+	int 	n, i, j, inserted, cmp, diceof;
 	char	cur_ltr, dic_word[MAXWORD], low_dicword[MAXWORD];
 	FILE 	*fp, *fp_orig;
 
@@ -22,18 +23,15 @@ void addwords(char **words)
 		if (*words[i] > cur_ltr )
 			cur_ltr = *words[i];
 		inserted = 0;
-		while (getword(fp_orig, dic_word, MAXWORD) != EOF) {
-			if (cur_ltr > *dic_word) {
-				fprintf(fp, "%s\n", dic_word);
-				continue;
-			}else if (*dic_word > cur_ltr) {
-				fprintf(fp, "%s\n", dic_word);
-				continue;
-			}
-			
+		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {			
 			for (j = 0; dic_word[j] ; ++j)
 				low_dicword[j] = lower(dic_word[j]);
 			low_dicword[j] = '\0';
+
+			if (cur_ltr > *low_dicword) {
+				fprintf(fp, "%s\n", dic_word);
+				continue;
+			}
 
 			if ( !inserted && (cmp = strcmp(words[i], low_dicword)) <= 0){
 				inserted = 1;
@@ -41,12 +39,20 @@ void addwords(char **words)
 					fprintf(fp, "%s\n", dic_word);
 				else
 					fprintf(fp, "%s\n%s\n", words[i], dic_word);
+				break;
 			}else 
 				fprintf(fp, "%s\n", dic_word);
-		}
 
-		fseek(fp_orig, 0, SEEK_SET);
+			if (*low_dicword > cur_ltr ) {
+				unget_word(fp, dic_word);
+				break;
+			}
+		}
 	}
+
+	if (diceof != EOF)		/* copy remaining dictionary words */
+		while (getword(fp_orig, dic_word, MAXWORD) != EOF)
+			fprintf(fp, "%s\n", dic_word);
 
 	fclose(fp);
 	fclose(fp_orig);
@@ -71,4 +77,12 @@ static void shellsort(char **w, int n)
 			for (j = i-g; j >= 0 && strcmp(w[j], w[j+g]) > 0 ; j -= g)
 				temp = w[j], w[j] = w[j+g], w[j+g] = temp;
 
+}
+
+static void unget_word(FILE *fp, char *w)
+{
+	size_t 	i;
+
+	for (i = strlen(w); i > 0 ; --i)
+		ungetc(w[i], fp);
 }
