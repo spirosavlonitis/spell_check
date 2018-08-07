@@ -5,7 +5,7 @@ static void unget_word(FILE *, char *);
 
 void addwords(char **words)
 {
-	int 	n, i, j, inserted, cmp, diceof;
+	int 	n, i, j, cmp, diceof;
 	char	cur_ltr, dic_word[MAXWORD], low_dicword[MAXWORD];
 	FILE 	*fp, *fp_orig;
 
@@ -22,7 +22,7 @@ void addwords(char **words)
 	for (i = 0; words[i] ; ++i) {
 		if (*words[i] > cur_ltr )
 			cur_ltr = *words[i];
-		inserted = 0;
+		
 		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {			
 			for (j = 0; dic_word[j] ; ++j)
 				low_dicword[j] = lower(dic_word[j]);
@@ -33,18 +33,19 @@ void addwords(char **words)
 				continue;
 			}
 
-			if ( !inserted && (cmp = strcmp(words[i], low_dicword)) <= 0){
-				inserted = 1;
+			if ( (cmp = strcmp(words[i], low_dicword)) <= 0){
 				if (cmp == 0)
 					fprintf(fp, "%s\n", dic_word);
-				else
-					fprintf(fp, "%s\n%s\n", words[i], dic_word);
+				else{
+					unget_word(fp_orig, dic_word);
+					fprintf(fp, "%s\n", words[i]);
+				}
 				break;
 			}else 
 				fprintf(fp, "%s\n", dic_word);
 
 			if (*low_dicword > cur_ltr ) {
-				unget_word(fp, dic_word);
+				unget_word(fp_orig, dic_word);
 				break;
 			}
 		}
@@ -56,6 +57,8 @@ void addwords(char **words)
 
 	fclose(fp);
 	fclose(fp_orig);
+
+	exit(1);
 
 	fp = Fopen("en-US.dic", "r");
 	fp_orig = Fopen("en-US_original.dic", "w");
@@ -81,8 +84,9 @@ static void shellsort(char **w, int n)
 
 static void unget_word(FILE *fp, char *w)
 {
-	size_t 	i;
+	int 	i;
 
-	for (i = strlen(w); i > 0 ; --i)
+	for (i = strlen(w)-1; i >= 0 ; --i)
 		ungetc(w[i], fp);
+
 }
