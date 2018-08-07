@@ -58,7 +58,6 @@ void addwords(char **words)
 		fprintf(fp_orig, "%s\n", dic_word);
 	fclose(fp);
 	fclose(fp_orig);
-
 }
 
 static void shellsort(char **w, int n)

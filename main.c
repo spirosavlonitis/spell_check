@@ -20,13 +20,11 @@ int main(int argc, char  *argv[])
 	else
 		readargs(argc, argv+1);
 	
-
 	if (a){
 		addwords(new_words);
 		printf("Dictionary updated\n");
 		exit(EXIT_SUCCESS);
 	}
-
 
 	root = NULL;
 	while (getword(fp, word, MAXWORD) != EOF)
