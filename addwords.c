@@ -27,14 +27,11 @@ void addwords(char **words)
 			for (j = 0; dic_word[j] ; ++j)
 				low_dicword[j] = lower(dic_word[j]);
 			low_dicword[j] = '\0';
-			
+
 			if ( (cmp = strcmp(words[i], low_dicword)) <= 0){
-				if (cmp == 0)
-					fprintf(fp, "%s\n", dic_word);
-				else{
+				if (cmp < 0)
 					unget_word(fp_orig, dic_word);
-					fprintf(fp, "%s\n", words[i]);
-				}
+				fprintf(fp, "%s\n", words[i]);
 				break;
 			}else 
 				fprintf(fp, "%s\n", dic_word);
