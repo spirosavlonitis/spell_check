@@ -23,7 +23,8 @@ int main(int argc, char  *argv[])
 
 	if (a){
 		addwords(new_words);
-		exit(1);
+		printf("Dictionary updated\n");
+		exit(EXIT_SUCCESS);
 	}
 
 
