@@ -27,12 +27,7 @@ void addwords(char **words)
 			for (j = 0; dic_word[j] ; ++j)
 				low_dicword[j] = lower(dic_word[j]);
 			low_dicword[j] = '\0';
-
-			if (cur_ltr > *low_dicword) {
-				fprintf(fp, "%s\n", dic_word);
-				continue;
-			}
-
+			
 			if ( (cmp = strcmp(words[i], low_dicword)) <= 0){
 				if (cmp == 0)
 					fprintf(fp, "%s\n", dic_word);
@@ -88,5 +83,4 @@ static void unget_word(FILE *fp, char *w)
 
 	for (i = strlen(w)-1; i >= 0 ; --i)
 		ungetc(w[i], fp);
-
 }
