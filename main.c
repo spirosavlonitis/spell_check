@@ -1,7 +1,5 @@
 #include "hdr.h"
 
-#define NEWWORDS 	100
-
 static void readargs(int, char **);
 
 static char 	*new_words[NEWWORDS];

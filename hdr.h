@@ -14,6 +14,7 @@ typedef struct sortnode {
 }	SORTNODE;
 
 #define MAXWORD		1000
+#define NEWWORDS 	100
 #define lower(a) ( (a) >= 'A' && (a) <= 'Z') ?	a + 32 : a;
 
 

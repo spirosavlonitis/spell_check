@@ -1,4 +1,5 @@
 #include "hdr.h"
+#include <ctype.h>
 
 static void shellsort(char **, int);
 static void unget_word(FILE *, char *);
@@ -7,7 +8,27 @@ void addwords(char **words)
 {
 	int 	n, i, j, cmp, diceof;
 	char	cur_ltr, dic_word[MAXWORD], low_dicword[MAXWORD];
+	char	*upper_words[NEWWORDS], *lower_words[NEWWORDS];
 	FILE 	*fp, *fp_orig;
+
+	for (int i = 0; i < NEWWORDS; ++i)
+		upper_words[i] = lower_words[i] = NULL;
+
+
+	for (n = i = j = 0; words[n] ; ++n)
+		if (isupper(*words[i]))
+			upper_words[i++] = words[n];
+		else
+			lower_words[j++] = words[n];
+
+	for (int i = 0; upper_words[i]; ++i)
+		printf("%s\n", upper_words[i]);
+
+	for (int i = 0; lower_words[i]; ++i)
+		printf("%s\n", lower_words[i]);
+
+
+	return;
 
 	for (n = 0; words[n]; ++n)
 		for (i = 0; i < strlen(words[n]) ; ++i)
