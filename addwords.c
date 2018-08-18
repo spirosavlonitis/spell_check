@@ -53,9 +53,9 @@ static void updatedic(char **words, int flag)
 
 	for (i = 0; words[i] ; ++i) {
 		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {	
-			if ( (cmp = strcmp(words[i], dic_word)) <= 0){		/* word to add is lesser or equal to dictionary word */
+			if ( (cmp =  strcasecmp(words[i], dic_word)) <= 0){		/* word to add is lesser or equal to dictionary word */
 				if (cmp < 0)				/* if lesser push dictionary word back to read buffer */
-					unget_word(fp_orig, dic_word);
+					unget_word(fp_orig, dic_word);		/* push dic_word back to buffer to be compared with the next word */
 				fprintf(fp, "%s\n", words[i]);		/* print word to file */
 				break;
 			}else 		
@@ -70,19 +70,20 @@ static void updatedic(char **words, int flag)
 	fclose(fp);
 	fclose(fp_orig);
 
-/*	fp = Fopen("en-US.dic", "w");
-	fp_orig = Fopen("en-US_original.dic", "r"); */
-
-	/* update source dictionary 
-	fp = Fopen("en-US.dic", "r");
-	fp_orig = Fopen("en-US_original.dic", "w");
+	/* update source dictionary */
+	if ( ~(~0 << 3) & flag == UPPER){
+		fp_orig =  Fopen("en-US_upper_original.dic", "w");
+		fp =  Fopen("en-US_upper.dic", "r");
+	}else{
+		fp_orig = Fopen("en-US_lower_original.dic", "w");
+		fp =  Fopen("en-US_lower.dic", "r");
+	}
 
 	while (getword(fp, dic_word, MAXWORD) != EOF)
 		fprintf(fp_orig, "%s\n", dic_word);
+	
 	fclose(fp);
-	fclose(fp_orig); */
-
-
+	fclose(fp_orig);
 }
 
 
