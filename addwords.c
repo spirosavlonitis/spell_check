@@ -52,7 +52,6 @@ static void updatedic(char **words, int flag)
 	}
 
 	for (i = 0; words[i] ; ++i) {
-		printf("%s\n", words[i]);
 		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {	
 			if ( (cmp =  strcasecmp(words[i], dic_word)) <= 0){		/* word to add is lesser or equal to dictionary word */
 				if (cmp < 0)				/* if lesser push dictionary word back to read buffer */
