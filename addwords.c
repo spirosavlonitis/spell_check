@@ -1,66 +1,55 @@
 #include "hdr.h"
 #include <ctype.h>
 
+#define	UPPER 	4
+#define LOWER 	2
+
 static void shellsort(char **, int);
 static void unget_word(FILE *, char *);
+static void updatedic(char **, int );
 
 void addwords(char **words)
 {
 	int 	n, i, j, cmp, diceof;
-	char	cur_ltr, dic_word[MAXWORD], low_dicword[MAXWORD];
+	char	dic_word[MAXWORD], low_dicword[MAXWORD];
 	char	*upper_words[NEWWORDS], *lower_words[NEWWORDS];
 	FILE 	*fp, *fp_orig;
 
 	for (int i = 0; i < NEWWORDS; ++i)
 		upper_words[i] = lower_words[i] = NULL;
 
-
 	for (n = i = j = 0; words[n] ; ++n)
-		if (isupper(*words[i]))
+		if (isupper(*words[n]))
 			upper_words[i++] = words[n];
 		else
 			lower_words[j++] = words[n];
 
-	for (int i = 0; upper_words[i]; ++i)
-		printf("%s\n", upper_words[i]);
-
-	for (int i = 0; lower_words[i]; ++i)
-		printf("%s\n", lower_words[i]);
-
-
+	if (*upper_words)  {
+		shellsort(upper_words, i);
+		updatedic(upper_words, UPPER);
+	}
+	
+	if (*lower_words) 
+		shellsort(lower_words, j);
 	return;
 
-	for (n = 0; words[n]; ++n)
-		for (i = 0; i < strlen(words[n]) ; ++i)
-			words[n][i] = lower(words[n][i]);
-
-	shellsort(words, n);
-
-	cur_ltr = **words;
 	fp = Fopen("en-US.dic", "w");
 	fp_orig = Fopen("en-US_original.dic", "r");
 
 	for (i = 0; words[i] ; ++i) {
-		if (*words[i] > cur_ltr )
-			cur_ltr = *words[i];
 		
 		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {			
 			for (j = 0; dic_word[j] ; ++j)
 				low_dicword[j] = lower(dic_word[j]);
 			low_dicword[j] = '\0';
 
-			if ( (cmp = strcmp(words[i], low_dicword)) <= 0){
-				if (cmp < 0)
+			if ( (cmp = strcmp(words[i], low_dicword)) <= 0){		/* word to add is lesser or equal to dictionary word */
+				if (cmp < 0)				/* if lesser push dictionary word back to read buffer */
 					unget_word(fp_orig, dic_word);
-				fprintf(fp, "%s\n", words[i]);
+				fprintf(fp, "%s\n", words[i]);		/* print word to file */
 				break;
-			}else 
-				fprintf(fp, "%s\n", dic_word);
-
-			if (*low_dicword > cur_ltr ) {
-				unget_word(fp_orig, dic_word);
-				break;
-			}
+			}else 		
+				fprintf(fp, "%s\n", dic_word);	/* print dictionary word to file */
 		}
 	}
 
@@ -80,6 +69,14 @@ void addwords(char **words)
 	fclose(fp);
 	fclose(fp_orig);
 }
+
+
+static void updatedic(char **words, int flag)
+{
+	if ( ~(~0 << 3) & flag == UPPER)
+		printf("upper\n");
+}
+
 
 static void shellsort(char **w, int n)
 {
