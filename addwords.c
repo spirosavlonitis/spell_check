@@ -10,8 +10,7 @@ static void updatedic(char **, int );
 
 void addwords(char **words)
 {
-	int 	n, i, j, cmp, diceof;
-	char	dic_word[MAXWORD], low_dicword[MAXWORD];
+	int 	n, i, j;
 	char	*upper_words[NEWWORDS], *lower_words[NEWWORDS];
 	FILE 	*fp, *fp_orig;
 
@@ -29,21 +28,32 @@ void addwords(char **words)
 		updatedic(upper_words, UPPER);
 	}
 	
-	if (*lower_words) 
+	if (*lower_words) {
 		shellsort(lower_words, j);
-	return;
+		updatedic(upper_words, LOWER);
+	}
 
-	fp = Fopen("en-US.dic", "w");
-	fp_orig = Fopen("en-US_original.dic", "r");
+	return;
+}
+
+
+static void updatedic(char **words, int flag)
+{
+	int 	i, cmp, diceof;
+	char	dic_word[MAXWORD];
+	FILE 	*fp, *fp_orig;
+
+	if ( ~(~0 << 3) & flag == UPPER){
+		fp_orig =  Fopen("en-US_upper_original.dic", "r");
+		fp =  Fopen("en-US_upper.dic", "w");
+	}else{
+		fp_orig = Fopen("en-US_lower_original.dic", "r");
+		fp =  Fopen("en-US_lower.dic", "w");
+	}
 
 	for (i = 0; words[i] ; ++i) {
-		
-		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {			
-			for (j = 0; dic_word[j] ; ++j)
-				low_dicword[j] = lower(dic_word[j]);
-			low_dicword[j] = '\0';
-
-			if ( (cmp = strcmp(words[i], low_dicword)) <= 0){		/* word to add is lesser or equal to dictionary word */
+		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {	
+			if ( (cmp = strcmp(words[i], dic_word)) <= 0){		/* word to add is lesser or equal to dictionary word */
 				if (cmp < 0)				/* if lesser push dictionary word back to read buffer */
 					unget_word(fp_orig, dic_word);
 				fprintf(fp, "%s\n", words[i]);		/* print word to file */
@@ -60,21 +70,19 @@ void addwords(char **words)
 	fclose(fp);
 	fclose(fp_orig);
 
-	/* update source dictionary */
+/*	fp = Fopen("en-US.dic", "w");
+	fp_orig = Fopen("en-US_original.dic", "r"); */
+
+	/* update source dictionary 
 	fp = Fopen("en-US.dic", "r");
 	fp_orig = Fopen("en-US_original.dic", "w");
 
 	while (getword(fp, dic_word, MAXWORD) != EOF)
 		fprintf(fp_orig, "%s\n", dic_word);
 	fclose(fp);
-	fclose(fp_orig);
-}
+	fclose(fp_orig); */
 
 
-static void updatedic(char **words, int flag)
-{
-	if ( ~(~0 << 3) & flag == UPPER)
-		printf("upper\n");
 }
 
 
