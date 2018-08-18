@@ -23,14 +23,14 @@ void addwords(char **words)
 		else
 			lower_words[j++] = words[n];
 
-	if (*upper_words)  {
+	if (*upper_words) {
 		shellsort(upper_words, i);
 		updatedic(upper_words, UPPER);
 	}
 	
 	if (*lower_words) {
 		shellsort(lower_words, j);
-		updatedic(upper_words, LOWER);
+		updatedic(lower_words, LOWER);
 	}
 
 	return;
@@ -52,6 +52,7 @@ static void updatedic(char **words, int flag)
 	}
 
 	for (i = 0; words[i] ; ++i) {
+		printf("%s\n", words[i]);
 		while ((diceof = getword(fp_orig, dic_word, MAXWORD)) != EOF) {	
 			if ( (cmp =  strcasecmp(words[i], dic_word)) <= 0){		/* word to add is lesser or equal to dictionary word */
 				if (cmp < 0)				/* if lesser push dictionary word back to read buffer */
