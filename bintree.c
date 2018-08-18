@@ -9,7 +9,6 @@ TREENODE *addtree(TREENODE *p, char *w)
 	if (p == NULL){
 		p = (TREENODE *)  malloc(sizeof(TREENODE));
 		p->word = strdup(w);
-		p->low_word =  downcase(p->word);
 		p->count = 1;
 		p->left = p->right = NULL;
 	}else if ( (cmp = strcmp(w, p->word)) == 0)
@@ -59,11 +58,11 @@ SORTNODE *treesort(TREENODE *p, SORTNODE	*s)
 			s = (SORTNODE *) malloc(sizeof(SORTNODE));
 			s->t_node = p;
 			s->next = s->prev = NULL;
-		}else if (strcmp(s->t_node->low_word, p->low_word) > 0) {
+		}else if (strcmp(s->t_node->word, p->word) > 0) {
 			high = s;
 			low = s->prev;
 
-			while (low != NULL && strcmp(low->t_node->low_word, p->low_word) > 0)
+			while (low != NULL && strcmp(low->t_node->word, p->word) > 0)
 				high = low,low = low->prev;
 
 			temp = (SORTNODE *) malloc(sizeof(SORTNODE));
@@ -95,5 +94,5 @@ SORTNODE *resetsort(SORTNODE *p)
 void sortprint(SORTNODE *p)
 {
 	for ( ;p != NULL; p = p->next)
-		printf("%s, %s: %ld\n", p->t_node->word, p->t_node->low_word, p->t_node->count);
+		printf("%s: %ld\n", p->t_node->word, p->t_node->count);
 }
