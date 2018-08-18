@@ -1,5 +1,5 @@
 #include "hdr.h"
-#include <ctype.h>
+
 
 #define	UPPER 	4
 #define LOWER 	2

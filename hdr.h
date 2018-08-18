@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 typedef	struct treenode {
 	char 	*word;
@@ -15,7 +16,7 @@ typedef struct sortnode {
 
 #define MAXWORD		1000
 #define NEWWORDS 	100
-#define lower(a) ( (a) >= 'A' && (a) <= 'Z') ?	a + 32 : a;
+#define lower(a) ( (a) >= 'A' && (a) <= 'Z') ?	a + 32 : a
 
 
 /* get_word.c */
