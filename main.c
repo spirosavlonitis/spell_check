@@ -11,12 +11,12 @@ int main(int argc, char  *argv[])
 	TREENODE 	*root;
 	SORTNODE	*snode;
 
-	a = 0;
+	a = s = 0;
 
-	if (argc == 1)
+	readargs(argc, argv+1);
+
+	if (fp == NULL)
 		fp = stdin;
-	else
-		readargs(argc, argv+1);
 	
 	if (a){
 		addwords(new_words);
@@ -62,6 +62,10 @@ static void readargs(int argc, char **argv)
 								else
 									new_words[i++] = *argv;
 						  	break;
+						case 's':
+							s = 1;
+							--argc;
+							break;
 						default:
 							err_quit("unkown option %c", c);
 							break;

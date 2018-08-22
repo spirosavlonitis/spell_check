@@ -31,8 +31,11 @@ void spellcheck(SORTNODE *p)
 			if (*word > cur_ltr)	/* passed current letter thus mistake */
 				break;
 		}
-		if (match == 0)
-			printf("%s\n", p->t_node->word);
+		if (match == 0) 
+			if (s)
+				printf("%s: Did you mean ?\n", p->t_node->word);
+			else
+				printf("%s\n", p->t_node->word);
 		fseek(fp, 0, SEEK_SET);
 	} 
 

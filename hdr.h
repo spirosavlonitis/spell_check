@@ -45,4 +45,4 @@ FILE *Fopen(char *, char *);
 void err_quit(char *, ...);
 
 /* options */
-int 	a;
+int 	a, s;
