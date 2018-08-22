@@ -15,10 +15,10 @@ void spellcheck(SORTNODE *p)
 	fp = Fopen("en-US_lower.dic", "r");
 
 	for ( ; p != NULL ; p = p->next, match = 0 ) {
-		if (isupper(*p->t_node->word))
+		if (isupper(*p->t_node->word))	
 			if ( (match = uppercheck(p->t_node)))
 				continue;
-		else if (*p->t_node->word > cur_ltr)
+		else if (*p->t_node->word > cur_ltr)	/* increase current letter */
 			cur_ltr = *p->t_node->word;
 
 		while (getword(fp, word, MAXWORD) != EOF) {			
