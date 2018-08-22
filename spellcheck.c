@@ -1,6 +1,5 @@
 #include "hdr.h"
 
-
 static int uppercheck(TREENODE *);
 
 void spellcheck(SORTNODE *p)
@@ -16,14 +15,11 @@ void spellcheck(SORTNODE *p)
 	fp = Fopen("en-US_lower.dic", "r");
 
 	for ( ; p != NULL ; p = p->next, match = 0 ) {
-		if (isupper(*p->t_node->word)) {
-			if ( (match = uppercheck(p->t_node))) {
+		if (isupper(*p->t_node->word))
+			if ( (match = uppercheck(p->t_node)))
 				continue;
-			}
-		}
-
-		if (lower(*p->t_node->word) > cur_ltr)
-			cur_ltr = lower(*p->t_node->word);
+		else if (*p->t_node->word > cur_ltr)
+			cur_ltr = *p->t_node->word;
 
 		while (getword(fp, word, MAXWORD) != EOF) {			
 			if (cur_ltr > *word)	/* haven't reached current letter */
@@ -73,18 +69,3 @@ static int uppercheck(TREENODE *t_node)
 	fclose(fp);
 	return match;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
