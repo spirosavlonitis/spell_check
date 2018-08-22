@@ -37,6 +37,9 @@ void spellcheck(SORTNODE *);
 /* addword */
 void addwords(char **);
 
+/* suggestions.c */
+void suggestions(char *);
+
 /* wrapper.c */
 FILE *Fopen(char *, char *);
 

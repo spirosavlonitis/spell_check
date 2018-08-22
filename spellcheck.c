@@ -32,8 +32,10 @@ void spellcheck(SORTNODE *p)
 				break;
 		}
 		if (match == 0) 
-			if (s)
-				printf("%s: Did you mean ?\n", p->t_node->word);
+			if (s){
+				printf("%s: Did you mean ?", p->t_node->word);
+				suggestions(p->t_node->word);
+			}
 			else
 				printf("%s\n", p->t_node->word);
 		fseek(fp, 0, SEEK_SET);
