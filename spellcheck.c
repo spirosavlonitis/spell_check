@@ -34,7 +34,7 @@ void spellcheck(SORTNODE *p)
 		if (match == 0) 
 			if (s){
 				printf("%s: Did you mean ?", p->t_node->word);
-				suggestions(p->t_node->word);
+				suggestions(p->t_node->word, isupper(*p->t_node->word) ? UPPER : LOWER );
 			}
 			else
 				printf("%s\n", p->t_node->word);

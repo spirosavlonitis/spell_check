@@ -34,11 +34,13 @@ void	sortprint(SORTNODE *);
 /* spellcheck.c */
 void spellcheck(SORTNODE *);
 
-/* addword */
+#define	UPPER 	4
+#define LOWER 	2
+/* addword.c */
 void addwords(char **);
 
 /* suggestions.c */
-void suggestions(char *);
+void suggestions(char *, int);
 
 /* wrapper.c */
 FILE *Fopen(char *, char *);

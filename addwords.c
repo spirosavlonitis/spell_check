@@ -1,9 +1,6 @@
 #include "hdr.h"
 
 
-#define	UPPER 	4
-#define LOWER 	2
-
 static void shellsort(char **, int);
 static void unget_word(FILE *, char *);
 static void updatedic(char **, int );
