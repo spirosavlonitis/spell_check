@@ -64,7 +64,6 @@ static void readargs(int argc, char **argv)
 						  	break;
 						case 's':
 							s = 1;
-							--argc;
 							break;
 						default:
 							err_quit("unkown option %c", c);

@@ -15,10 +15,10 @@ void spellcheck(SORTNODE *p)
 	fp = Fopen("en-US_lower.dic", "r");
 
 	for ( ; p != NULL ; p = p->next, match = 0 ) {
-		if (isupper(*p->t_node->word))	
+		if (isupper(*p->t_node->word)) {	
 			if ( (match = uppercheck(p->t_node)))
 				continue;
-		else if (*p->t_node->word > cur_ltr)	/* increase current letter */
+		}else if (*p->t_node->word > cur_ltr)	/* increase current letter */
 			cur_ltr = *p->t_node->word;
 
 		while (getword(fp, word, MAXWORD) != EOF) {			
@@ -31,13 +31,14 @@ void spellcheck(SORTNODE *p)
 			if (*word > cur_ltr)	/* passed current letter thus mistake */
 				break;
 		}
-		if (match == 0) 
+		if (match == 0) {
 			if (s){
 				printf("%s: Did you mean ?", p->t_node->word);
 				suggestions(p->t_node->word, isupper(*p->t_node->word) ? UPPER : LOWER );
 			}
 			else
 				printf("%s\n", p->t_node->word);
+		}
 		fseek(fp, 0, SEEK_SET);
 	} 
 
