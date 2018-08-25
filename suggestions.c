@@ -7,7 +7,6 @@ void suggestions(char *pattern, int flag)
 	FILE	*fp;
 
 	l = strlen(pattern);
-	n = l-2;
 
 	for (d = 0; d < 2 ; ++d) {
 
@@ -16,20 +15,20 @@ void suggestions(char *pattern, int flag)
 		else
 			fp = Fopen("en-US_lower.dic", "r");
 
-		while (getword(fp, word, MAXWORD) != EOF) {
+		for ( n = l -2; getword(fp, word, MAXWORD) != EOF ; n = l -2) {
 			if ( (lower(*word)) < (lower(*pattern)) )
 				continue;
 			if ( (lower(word[strlen(word) - 1])) != (lower(pattern[l-1])) )		/* same last letter */
 				continue;
 
 			for (i = 0, j = 0 ; i < strlen(word) && j < l ; ++i)		/* compare word to */
-				if (word[i] == pattern[j])
+				if ( (lower(word[i])) == (lower(pattern[j])) )
 					j++;
-			if ( j >= n && strlen(word) - j == 1 ) {
-				printf("%d: %s\n",j ,word);
-				n = j;
+			if ( j >= n && strlen(word)-j <= 2 ) {
+				printf(" %s", word);
+				if (j > n)
+					n = j;
 			}
-
 			if ( (lower(*word)) > (lower(*pattern)))
 				break; 
 		}
