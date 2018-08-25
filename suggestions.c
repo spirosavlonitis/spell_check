@@ -28,15 +28,19 @@ void suggestions(char *pattern, int flag)
 			if ( (lower(word[strlen(word) - 1])) != (lower(pattern[l-1])) )		/* same last letter */
 				continue;
 
-			for (i = 0, n = 0; i < strlen(word) ; ++i) {		/* compare patter to current word */
-				for (j = 0, k = i; j < l && word[k] == pattern[j]  ; ++j, ++k)
-					;
-
-				if (pattern[j] == '\0' )
-					printf("%s\n",  word);
+			for (i = 0, n = 0; i < strlen(word) ; ++i) {		/* compare word to */
+				for (j = 0; j < l ; ++j)		/* pattern */
+					for (h = j, k = i; h < l && word[k] == pattern[h]; ++h, k++)
+						n++;
+				if (word[k] == '\0')	/* pattern exhausted */
+					break;
+				if (k > i)
+					i = k;
 			}
-			if (n > sug.n) {
-				printf(" %d: %s", n, word);
+			if (strcmp("exhausted", word) == 0)
+				printf("%d\n", n);
+			if ( n > sug.n) {
+				printf("%d: %s\n",n ,word);
 				sug.n = n;
 			}
 
