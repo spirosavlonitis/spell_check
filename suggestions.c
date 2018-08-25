@@ -34,7 +34,5 @@ void suggestions(char *pattern, int flag)
 		}
 		fclose(fp);
 	}
-
-	putchar(10);
-
+	putchar('\n');
 }
