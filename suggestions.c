@@ -29,10 +29,10 @@ void suggestions(char *pattern, int flag)
 				continue;
 
 			for (i = 0, n = 0; i < strlen(word) ; ++i) {		/* compare patter to current word */
-				for (j = 0, k = i; j < l && word[k] == word[j]  ; ++j, ++k)
+				for (j = 0, k = i; j < l && word[k] == pattern[j]  ; ++j, ++k)
 					;
 
-				if (k == l)
+				if (pattern[j] == '\0' )
 					printf("%s\n",  word);
 			}
 			if (n > sug.n) {
