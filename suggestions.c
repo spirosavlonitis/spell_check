@@ -22,7 +22,7 @@ void suggestions(char *pattern, int flag)
 			if ( (lower(word[strlen(word) - 1])) != (lower(pattern[l-1])) )		/* same last letter */
 				continue;
 
-			for (i = 0, j = 0 ; i < strlen(word) ; ++i)		/* compare word to */
+			for (i = 0, j = 0 ; i < strlen(word) && j < l ; ++i)		/* compare word to */
 				if (word[i] == pattern[j])
 					j++;
 			if ( j > n) {
