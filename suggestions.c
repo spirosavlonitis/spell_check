@@ -33,7 +33,7 @@ void suggestions(char *pattern, int flag)
 				if ( (lower(word[i])) == (lower(pattern[n])) )
 					n++;
 			if (n > sug.n) {
-				printf("%s\n", word);
+				printf(" %s", word);
 				sug.n = n;
 			}
 
@@ -43,6 +43,6 @@ void suggestions(char *pattern, int flag)
 		fclose(fp);
 	}
 
-	printf(" %s\n", result);
+	putchar(10);
 
 }
