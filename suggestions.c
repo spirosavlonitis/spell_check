@@ -25,7 +25,7 @@ void suggestions(char *pattern, int flag)
 			for (i = 0, j = 0 ; i < strlen(word) && j < l ; ++i)		/* compare word to */
 				if (word[i] == pattern[j])
 					j++;
-			if ( j > n || strlen(word) - j == 1 ) {
+			if ( j >= n && strlen(word) - j == 1 ) {
 				printf("%d: %s\n",j ,word);
 				n = j;
 			}
