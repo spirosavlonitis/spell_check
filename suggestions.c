@@ -14,7 +14,6 @@ void suggestions(char *pattern, int flag)
 
 	l = strlen(pattern);
 	sug.n = 0;
-	n = 0;
 
 	for (d = 0; d < 2 ; ++d) {
 
@@ -29,19 +28,20 @@ void suggestions(char *pattern, int flag)
 			if ( (lower(word[strlen(word) - 1])) != (lower(pattern[l-1])) )		/* same last letter */
 				continue;
 
-			for (i = 0, n = 0; i < strlen(word) ; ++i)
-				for ( j = 0; j < l ; ++j)
-					for (k = j, h = i; k < l && word[k] == pattern[h] ; ++k, ++h)
-						n++;
-					
+			for (i = 0, n = 0; i < strlen(word) ; ++i) {		/* compare patter to current word */
+				for (j = 0, k = i; j < l && word[k] == word[j]  ; ++j, ++k)
+					;
 
+				if (k == l)
+					printf("%s\n",  word);
+			}
 			if (n > sug.n) {
-				printf(" %s", word);
+				printf(" %d: %s", n, word);
 				sug.n = n;
 			}
 
 			if ( (lower(*word)) > (lower(*pattern)))
-				break;
+				break; 
 		}
 		fclose(fp);
 	}
