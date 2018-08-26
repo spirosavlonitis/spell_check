@@ -25,7 +25,7 @@ Use stdin as input source, to terminate when finished enter the EOF character (c
 With suggestions
 
 ```shell
-      ./spell_check
+      ./spell_check -s
       This is a rudmentry speel checking progam !!
 
       progam: Did you mean ? program
