@@ -1,5 +1,8 @@
 #include "hdr.h"
 
+#define BOLD_RED	"\x1b[1;31m"
+#define RESET		"\x1b[0m"
+
 static int uppercheck(TREENODE *);
 
 void spellcheck(SORTNODE *p)
@@ -34,10 +37,10 @@ void spellcheck(SORTNODE *p)
 		}
 		if (match == 0) {
 			if (s){
-				printf("%s: Did you mean ?", p->t_node->word);
+				printf("\n%s%s: %sDid you mean ?", BOLD_RED, p->t_node->word, RESET);
 				suggestions(p->t_node->word, isupper(*p->t_node->word) ? UPPER : LOWER );
 			}else
-				printf("%s\n", p->t_node->word);
+				printf("\n%s%s%s\n",BOLD_RED, p->t_node->word, RESET);
 		}
 		fseek(fp, 0, SEEK_SET);
 	} 
