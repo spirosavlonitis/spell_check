@@ -44,6 +44,8 @@ int main(int argc, char  *argv[])
 }
 
 
+static void help_message(void);
+
 static void readargs(int argc, char **argv)
 {
 	int 	i;
@@ -65,6 +67,11 @@ static void readargs(int argc, char **argv)
 						case 's':
 							s = 1;
 							break;
+						case '-':
+							if ( strcmp((*argv)+1,"help") == 0)
+								help_message();
+							err_quit("unkown option %s", (*argv)-1);
+							break;
 						default:
 							err_quit("unkown option %c", c);
 							break;
@@ -74,4 +81,21 @@ static void readargs(int argc, char **argv)
 				fp = Fopen(*argv, "r");
 				break;
 		}
+}
+
+static void help_message()
+{
+
+	char *message;
+
+	message = "Usage: spell_checker  [OPTION]  [FILE] \n\
+Check for spelling mistakes in each file or stdin. \n\
+Example: spell_check -s file.txt \n\
+\n\
+Available options: \n\
+ -s		Print suggestions for misspelled words \n\
+ -a		Add a word or words to dictionary for future reference \n\
+ --help		Prints this message";
+
+	err_quit(message);
 }
