@@ -1,5 +1,5 @@
 default:
-	gcc *.c
+	gcc *.c -o spell_check
 
 run: default
-	./a.out
+	./spell_check
