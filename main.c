@@ -43,7 +43,6 @@ int main(int argc, char  *argv[])
 	exit(EXIT_SUCCESS);
 }
 
-
 static void help_message(void);
 
 static void readargs(int argc, char **argv)
@@ -85,7 +84,6 @@ static void readargs(int argc, char **argv)
 
 static void help_message()
 {
-
 	char *message;
 
 	message = "Usage: spell_checker  [OPTION]  [FILE] \n\
