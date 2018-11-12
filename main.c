@@ -69,10 +69,10 @@ static void readargs(int argc, char **argv)
 						case '-':
 							if ( strcmp((*argv)+1,"help") == 0)
 								help_message();
-							err_quit("unkown option %s", (*argv)-1);
+							err_quit("unknown option %s", (*argv)-1);
 							break;
 						default:
-							err_quit("unkown option %c", c);
+							err_quit("unknown option %c", c);
 							break;
 					}
 				break;
