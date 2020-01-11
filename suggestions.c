@@ -1,5 +1,8 @@
 #include "hdr.h"
 
+#define UPPER_DIC 	"/home/phantom/Git/spell_check/en-US_upper.dic"
+#define LOWER_DIC 	"/home/phantom/Git/spell_check/en-US_lower.dic"
+
 void suggestions(char *pattern, int flag)
 {
 	char 	word[MAXWORD], result[MAXWORD];
@@ -11,9 +14,9 @@ void suggestions(char *pattern, int flag)
 	for (d = 0; d < 2 ; ++d) {
 
 		if (d == 0) 
-			fp = Fopen("en-US_upper.dic", "r");
+			fp = Fopen(UPPER_DIC, "r");
 		else
-			fp = Fopen("en-US_lower.dic", "r");
+			fp = Fopen(LOWER_DIC, "r");
 
 		for ( n = l -2; getword(fp, word, MAXWORD) != EOF ; n = l -2) {
 			if ( (lower(*word)) < (lower(*pattern)) )
