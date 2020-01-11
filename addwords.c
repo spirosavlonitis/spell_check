@@ -5,6 +5,9 @@ static void shellsort(char **, int);
 static void unget_word(FILE *, char *);
 static void updatedic(char **, int );
 
+#define UPPER_ORIGINAL_DIC   "/home/phantom/Git/spell_check/en-US_upper_original.dic"
+#define LOWER_ORIGINAL_DIC   "/home/phantom/Git/spell_check/en-US_lower_original.dic"
+
 void addwords(char **words)
 {
 	int 	n, i, j;
@@ -41,11 +44,11 @@ static void updatedic(char **words, int flag)
 	FILE 	*fp, *fp_orig;
 
 	if ( ~(~0 << 3) & flag == UPPER){
-		fp_orig =  Fopen("en-US_upper_original.dic", "r");
-		fp =  Fopen("en-US_upper.dic", "w");
+		fp_orig =  Fopen(UPPER_ORIGINAL_DIC, "r");
+		fp =  Fopen(UPPER_DIC, "w");
 	}else{
-		fp_orig = Fopen("en-US_lower_original.dic", "r");
-		fp =  Fopen("en-US_lower.dic", "w");
+		fp_orig = Fopen(LOWER_ORIGINAL_DIC, "r");
+		fp =  Fopen(LOWER_DIC, "w");
 	}
 
 	for (i = 0; words[i] ; ++i) {
@@ -69,11 +72,11 @@ static void updatedic(char **words, int flag)
 
 	/* update source dictionary */
 	if ( ~(~0 << 3) & flag == UPPER){
-		fp_orig =  Fopen("en-US_upper_original.dic", "w");
-		fp =  Fopen("en-US_upper.dic", "r");
+		fp_orig =  Fopen(UPPER_ORIGINAL_DIC, "w");
+		fp =  Fopen(UPPER_DIC, "r");
 	}else{
-		fp_orig = Fopen("en-US_lower_original.dic", "w");
-		fp =  Fopen("en-US_lower.dic", "r");
+		fp_orig = Fopen(LOWER_ORIGINAL_DIC, "w");
+		fp =  Fopen(LOWER_DIC, "r");
 	}
 
 	while (getword(fp, dic_word, MAXWORD) != EOF)
