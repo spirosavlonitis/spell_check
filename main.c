@@ -27,7 +27,6 @@ int main(int argc, char  *argv[])
 	root = NULL;
 	while (getword(fp, word, MAXWORD) != EOF)
 		root = addtree(root, word);
-
 	if (root == NULL)
 		err_quit("No input !!");
 

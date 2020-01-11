@@ -14,7 +14,6 @@ void spellcheck(SORTNODE *p)
 	match = 0;
 
 	cur_ltr = lower(*p->t_node->word);
-
 	fp = Fopen(LOWER_DIC, "r");
 
 	for ( ; p != NULL ; p = p->next, match = 0 ) {
@@ -61,7 +60,7 @@ static int uppercheck(TREENODE *t_node)
 	else if (*t_node->word > cur_ltr)
 		cur_ltr = *t_node->word;
 
-	fp = Fopen("en-US_upper.dic", "r");
+	fp = Fopen(UPPER_DIC, "r");
 	while (getword(fp, word, MAXWORD) != EOF) {
 		if (cur_ltr > *word)	/* haven't reached current letter */
 			continue;
