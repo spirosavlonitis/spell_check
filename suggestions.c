@@ -1,8 +1,5 @@
 #include "hdr.h"
 
-#define UPPER_DIC 	"/home/phantom/Git/spell_check/en-US_upper.dic"
-#define LOWER_DIC 	"/home/phantom/Git/spell_check/en-US_lower.dic"
-
 void suggestions(char *pattern, int flag)
 {
 	char 	word[MAXWORD], result[MAXWORD];

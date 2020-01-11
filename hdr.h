@@ -31,6 +31,10 @@ SORTNODE *treesort(TREENODE *, SORTNODE *);
 SORTNODE *resetsort(SORTNODE *);
 void	sortprint(SORTNODE *);
 
+/* dictionaries path */
+#define UPPER_DIC   "/home/phantom/Git/spell_check/en-US_upper.dic"
+#define LOWER_DIC   "/home/phantom/Git/spell_check/en-US_lower.dic"
+
 /* spellcheck.c */
 void spellcheck(SORTNODE *);
 

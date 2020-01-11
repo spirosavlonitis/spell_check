@@ -15,7 +15,7 @@ void spellcheck(SORTNODE *p)
 
 	cur_ltr = lower(*p->t_node->word);
 
-	fp = Fopen("en-US_lower.dic", "r");
+	fp = Fopen(LOWER_DIC, "r");
 
 	for ( ; p != NULL ; p = p->next, match = 0 ) {
 		if (isupper(*p->t_node->word)) {	
